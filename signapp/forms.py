@@ -1,9 +1,21 @@
 from django import forms
 from .models import MyModel,StudentsMod
 class MyModelForm(forms.ModelForm):
+    GENDER=(
+        ('male','Male'),
+        ('female','Female'),
+        ('other','Other'),
+    )
     class Meta:
         model = MyModel
-        fields = ['name' ,'contact', 'email', 'password']
+        fields = ['Teachername' ,'gender', 'age', 'email']
+    gender=forms.ChoiceField(choices=GENDER,widget=forms.RadioSelect())
+    widgets={
+            'name':forms.TextInput(),
+            'gender':forms.Select(),
+            'age':forms.NumberInput(),
+            'email':forms.EmailInput(),
+        }
 class ModelForStud(forms.ModelForm):
     GENDER=(
         ('male','Male'),
