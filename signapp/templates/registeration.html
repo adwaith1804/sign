@@ -5,7 +5,7 @@
   </head>
   <body>
     <h2>Registration</h2>
-    <form method="post" action="{% url 'students_reg' %}">
+    <form method="post" action="">
       {% csrf_token %} {{ form.as_p }}
       <button type="submit">Submit</button>
     </form>

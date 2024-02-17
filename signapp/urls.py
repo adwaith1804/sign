@@ -1,6 +1,6 @@
 from django.urls import path
 # from.http import views
-from .views import insert_data,students_reg
+from .views import insert_data , students_reg
 
 urlpatterns = [
     path('insert_data/', insert_data, name='insert_data'),

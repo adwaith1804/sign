@@ -1,18 +1,18 @@
 from django.shortcuts import render, redirect
-from .forms import MyModelForm,ModelForStud
-from .models import MyModel
+from .forms import ModelForStud,TeacherForm
+
 #run on /sign
-def insert_data(request):
-    if request.method == 'POST':
-        form = MyModelForm(request.POST)
-        if form.is_valid():
-            form.save()
+# def insert_data(request):
+#     if request.method == 'POST':
+#         form = MyModelForm(request.POST)
+#         if form.is_valid():
+#             form.save()
            
-            return redirect('insert_data')
+#             return redirect('insert_data')
             
-    else:
-        form = MyModelForm()
-    return render(request,'registeration.html', {'form': form}) 
+#     else:
+#         form = MyModelForm()
+#     return render(request,'registeration.html', {'form': form}) 
 
 def students_reg(request):
     if request.method =='POST':
@@ -23,3 +23,14 @@ def students_reg(request):
     else:
         form = ModelForStud()  
     return render(request,'studentsreg.html', {'form': form})
+def insert_data(request):
+    if request.method == 'POST':
+        form = TeacherForm(request.POST)
+        if form.is_valid():
+            form.save()
+           
+            return redirect('insert_data')
+            
+    else:
+        form = TeacherForm()
+    return render(request,'registeration.html', {'form': form}) 

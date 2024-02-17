@@ -1,21 +1,6 @@
 from django import forms
-from .models import MyModel,StudentsMod
-class MyModelForm(forms.ModelForm):
-    GENDER=(
-        ('male','Male'),
-        ('female','Female'),
-        ('other','Other'),
-    )
-    class Meta:
-        model = MyModel
-        fields = ['Teachername' ,'gender', 'age', 'email']
-    gender=forms.ChoiceField(choices=GENDER,widget=forms.RadioSelect())
-    widgets={
-            'name':forms.TextInput(),
-            'gender':forms.Select(),
-            'age':forms.NumberInput(),
-            'email':forms.EmailInput(),
-        }
+from .models import StudentsMod,ModelForTeach
+
 class ModelForStud(forms.ModelForm):
     GENDER=(
         ('male','Male'),
@@ -36,5 +21,21 @@ class ModelForStud(forms.ModelForm):
             'guradPhone':forms.NumberInput(),
             'userName':forms.TextInput(),
             'gender':forms.Select(),
+            'email':forms.EmailInput(),
+        }
+class TeacherForm(forms.ModelForm):
+    GENDER=(
+        ('male','Male'),
+        ('female','Female'),
+        ('other','Other'),
+    )
+    class Meta:
+        model = ModelForTeach
+        fields = ['teachername' ,'gender', 'age', 'email']
+    gender=forms.ChoiceField(choices=GENDER,widget=forms.RadioSelect())
+    widgets={
+            'teachername':forms.TextInput(),
+            'gender':forms.Select(),
+            'age':forms.NumberInput(),
             'email':forms.EmailInput(),
         }
