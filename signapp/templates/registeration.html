@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Registration </title>
+    <title>Registration</title>
   </head>
   <body>
     <h2>Registration</h2>
-    <form method="post" action="{% url 'insert_data' %}">
+    <form method="post" action="{% url 'students_reg' %}">
       {% csrf_token %} {{ form.as_p }}
       <button type="submit">Submit</button>
     </form>
