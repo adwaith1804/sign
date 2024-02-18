@@ -34,8 +34,8 @@ class TeacherForm(forms.ModelForm):
         fields = ['teachername' ,'gender', 'age', 'email']
     gender=forms.ChoiceField(choices=GENDER,widget=forms.RadioSelect())
     widgets={
-            'teachername':forms.TextInput(),
-            'gender':forms.Select(),
-            'age':forms.NumberInput(),
-            'email':forms.EmailInput(),
+            'teachername':forms.TextInput(attrs={'class': 'form-control'}),
+            'gender':forms.Select(attrs={'class': 'form-control'}),
+            'age':forms.NumberInput(attrs={'class': 'form-control'}),
+            'email':forms.EmailInput(attrs={'class': 'form-control'}),
         }
