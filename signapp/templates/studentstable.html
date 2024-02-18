@@ -34,14 +34,24 @@
   <body>
     <table border="1">
       <tr>
+        <th>Admission No.</th>
         <th>Name</th>
+        <th>Contact</th>
+        <th>Guardian Name</th>
+        <th>Guardian Phone Number</th>
+        <th>User Name</th>
+        <th>Gender</th>
         <th>Email</th>
       </tr>
       {% for my_students in my_students %}
       <tr>
+        <td>{{ my_students.admissionno }}</td>
         <td>{{ my_students.name }}</td>
+        <td>{{ my_students.contact }}</td>
+        <td>{{ my_students.guardianName }}</td>
+        <td>{{ my_students.guradPhone }}</td>
+        <td>{{ my_students.userName }}</td>
         <td>{{ my_students.gender }}</td>
-        <td>{{ my_students.age }}</td>
         <td>{{ my_students.email }}</td>
         <td><a href="">Edit</a></td>
         <td><a href="">Delete</a></td>
