@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import ModelForStud,TeacherForm
-
+from .models import StudentsMod,ModelForTeach
 #run on /sign
 # def insert_data(request):
 #     if request.method == 'POST':
@@ -34,3 +34,6 @@ def insert_data(request):
     else:
         form = TeacherForm()
     return render(request,'registeration.html', {'form': form}) 
+def view_teacher(request):
+    my_models = ModelForTeach.objects.all()
+    return render(request, 'teachtable.html', {'my_models': my_models})

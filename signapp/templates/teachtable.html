@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* Centering the table */
+      body {
+        display: flex;
+        justify-content: center;
+
+        margin: 0;
+      }
+
+      /* Adding some basic styles to the table */
+      table {
+        border-collapse: collapse;
+        width: 50%; /* Adjust the width as needed */
+      }
+
+      th,
+      td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f2f2f2; /* Adding a light background color to header cells */
+      }
+    </style>
+  </head>
+  <body>
+    <table border="1">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+      </tr>
+      {% for my_model in my_models %}
+      <tr>
+        <td>{{ my_model.teachername }}</td>
+        <td>{{ my_model.gender }}</td>
+        <td>{{ my_model.age }}</td>
+        <td>{{ my_model.email }}</td>
+        <td><a href="">Edit</a></td>
+        <td><a href="">Delete</a></td>
+      </tr>
+      {% endfor %}
+      <!-- Add your table data here -->
+    </table>
+  </body>
+</html>
