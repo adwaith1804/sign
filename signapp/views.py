@@ -37,3 +37,6 @@ def insert_data(request):
 def view_teacher(request):
     my_models = ModelForTeach.objects.all()
     return render(request, 'teachtable.html', {'my_models': my_models})
+def view_students(request):
+    my_students = StudentsMod.objects.all()
+    return render(request, 'studentstable.html', {'my_students': my_students})

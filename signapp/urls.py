@@ -7,4 +7,5 @@ urlpatterns = [
     #path('view_table/', view_table, name='table'),
     path('students_reg/', views.students_reg , name='students_reg'),
     path('view_teacher/', views.view_teacher, name='table'),
+    path('view_students/', views.view_students, name='table'),
 ]
