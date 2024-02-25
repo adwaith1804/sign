@@ -3,12 +3,67 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Teacher Registration</title>
+    <title>Document</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2; /* Updated background color */
+        margin: 0;
+        padding: 0;
+      }
+
+      .form_div {
+        max-width: 400px; /* Adjusted maximum width */
+        width: 90%; /* Adjusted width */
+        margin: 50px auto;
+        background-color: #ffffff; /* Updated background color */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      label {
+        margin-bottom: 10px;
+      }
+
+      input[type="text"],
+      input[type="number"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+      }
+
+      button[type="submit"] {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+    </style>
   </head>
   <body>
-    <form method="post" action="">
-      {% csrf_token %} 
-      {{ form.as_p }}
-      <button type="submit">Submit</button>
-    </form>
+    <div class="form_div">
+      <form method="post">
+        {% csrf_token %} {{ form.as_p }}
+        <button type="submit">Save Changes</button>
+      </form>
+    </div>
+  </body>
 </html>

@@ -43,8 +43,14 @@
         <td>{{ my_model.gender }}</td>
         <td>{{ my_model.age }}</td>
         <td>{{ my_model.email }}</td>
-        <td><a href="">Edit</a></td>
-        <td><a href="">Delete</a></td>
+        <td>
+          <a href="{% url 'edit_teacher' teachid=my_model.teachid %}">Edit</a>
+        </td>
+        <td>
+          <a href="{% url 'delete_teacher' teachid=my_model.teachid %}"
+            >Delete</a
+          >
+        </td>
       </tr>
       {% endfor %}
       <!-- Add your table data here -->

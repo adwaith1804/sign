@@ -34,36 +34,20 @@
   <body>
     <table border="1">
       <tr>
-        <th>Admission No.</th>
-        <th>Name</th>
-        <th>Contact</th>
-        <th>Guardian Name</th>
-        <th>Guardian Phone Number</th>
-        <th>User Name</th>
-        <th>Gender</th>
-        <th>Email</th>
+        <th>Notification</th>
+        <th>Date</th>
       </tr>
-      {% for my_students in my_students %}
+      {% for my_models in my_models %}
       <tr>
-        <td>{{ my_students.admissionno }}</td>
-        <td>{{ my_students.name }}</td>
-        <td>{{ my_students.contact }}</td>
-        <td>{{ my_students.guardianName }}</td>
-        <td>{{ my_students.guradPhone }}</td>
-        <td>{{ my_students.userName }}</td>
-        <td>{{ my_students.gender }}</td>
-        <td>{{ my_students.email }}</td>
+        <td>{{ my_models.notification }}</td>
+        <td>{{ my_models.current_date }}</td>
+
         <td>
-          <a href="{% url 'edit_student' admissionno=my_students.admissionno %}"
-            >Edit</a
-          >
+          <a href="">Edit</a>
         </td>
 
         <td>
-          <a
-            href="{% url 'delete_student' admissionno=my_students.admissionno %}"
-            >Delete</a
-          >
+          <a href="">Delete</a>
         </td>
       </tr>
       {% endfor %}

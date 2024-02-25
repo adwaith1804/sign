@@ -1,5 +1,6 @@
 from django import forms
-from .models import StudentsMod,ModelForTeach
+from .models import StudentsMod,ModelForTeacher,TableOfNotifications
+from datetime import date
 
 class ModelForStud(forms.ModelForm):
     GENDER=(
@@ -14,14 +15,14 @@ class ModelForStud(forms.ModelForm):
         fields = ['admissionno' ,'name', 'contact', 'guardianName','guradPhone','userName','gender','email']
 
         widgets={
-            'admissionno':forms.NumberInput(),
-            'name':forms.TextInput(),
-            'contact' : forms.NumberInput(),
-            'guardianName':forms.TextInput(),
-            'guradPhone':forms.NumberInput(),
-            'userName':forms.TextInput(),
-            'gender':forms.Select(),
-            'email':forms.EmailInput(),
+            'admissionno': forms.NumberInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
+            'name': forms.TextInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
+            'contact': forms.NumberInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
+            'guardianName': forms.TextInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
+            'guradPhone': forms.NumberInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
+            'userName': forms.TextInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
+            'gender': forms.Select(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
         }
 class TeacherForm(forms.ModelForm):
     GENDER=(
@@ -30,7 +31,7 @@ class TeacherForm(forms.ModelForm):
         ('other','Other'),
     )
     class Meta:
-        model = ModelForTeach
+        model = ModelForTeacher
         fields = ['teachername' ,'gender', 'age', 'email']
     gender=forms.ChoiceField(choices=GENDER,widget=forms.RadioSelect())
     widgets={
@@ -39,3 +40,13 @@ class TeacherForm(forms.ModelForm):
             'age':forms.NumberInput(attrs={'class': 'form-control'}),
             'email':forms.EmailInput(attrs={'class': 'form-control'}),
         }
+class NotificationForm(forms.ModelForm):
+    current_date = forms.DateField(widget=forms.HiddenInput(),initial=date.today)
+    class Meta:
+        model = TableOfNotifications
+        fields = ['notification' ]
+    widgets={
+            'notification':forms.Textarea(attrs={'class': 'form-control'})
+    }
+class StudentSearchForm(forms.Form):
+    query = forms.CharField(label='Search')
