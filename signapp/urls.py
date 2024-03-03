@@ -3,6 +3,8 @@ from django.urls import path
 from .import views
 
 urlpatterns = [
+    path('', views.index, name='index'),
+    path('indexstudent', views.indexstudent, name='indexstudent'),
     path('insert_data/', views.insert_data, name='insert_data'),
     #path('view_table/', view_table, name='table'),
     path('students_reg/', views.students_reg , name='students_reg'),
@@ -15,5 +17,8 @@ urlpatterns = [
     path('add_notification/', views.add_notification, name='add_notification'),
     path('view_notification/', views.view_notification, name='view_notification'),
     path('search_students/', views.search_students, name='search_students'),
+    path('table_doubt/', views.table_doubt, name='table_doubt'),
+    
+    
 
 ]

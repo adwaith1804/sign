@@ -1,5 +1,5 @@
 from django import forms
-from .models import StudentsMod,ModelForTeacher,TableOfNotifications
+from .models import StudentsMod,ModelForTeacher,TableOfNotifications,TableForDoubt
 from datetime import date
 
 class ModelForStud(forms.ModelForm):
@@ -48,5 +48,12 @@ class NotificationForm(forms.ModelForm):
     widgets={
             'notification':forms.Textarea(attrs={'class': 'form-control'})
     }
-class StudentSearchForm(forms.Form):
-    query = forms.CharField(label='Search')
+class FormForDoubt(forms.ModelForm):
+    currentdate = forms.DateField(widget=forms.HiddenInput(),initial=date.today)
+    class Meta:
+        model = TableForDoubt
+        fields = ['doubt']
+        widgets={
+            'Doubt':forms.TextInput(attrs={'class': 'form-control'}),
+        }
+    

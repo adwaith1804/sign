@@ -27,8 +27,14 @@ class TableOfNotifications(models.Model):
     notification_id = models.AutoField(primary_key=True)
     notification = models.CharField(max_length=70)
     current_date = models.DateField(null=True)
-       
+class TableForDoubt(models.Model):
+    doubtid = models.AutoField(primary_key=True)
+    doubt = models.CharField(max_length=1000)
+    teacherloginid = models.CharField(max_length=10)
+    studentloginid= models.CharField(max_length=50)
+    currentdate= models.DateField(null=True)
     
+
     
       
 # Create your models here.

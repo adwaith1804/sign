@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import ModelForStud, TeacherForm, NotificationForm,StudentSearchForm
-from .models import StudentsMod,ModelForTeacher,TableOfNotifications
+from .forms import ModelForStud, TeacherForm, NotificationForm,FormForDoubt
+from .models import StudentsMod,ModelForTeacher,TableOfNotifications,TableForDoubt
 from datetime import date
 from django.db.models import Q
 
@@ -107,3 +107,21 @@ def search_students(request):
         )
     
     return render(request, 'search_results.html', {'results': results, 'query': query})
+def table_doubt(request):
+    if request.method =='POST':
+        form = FormForDoubt(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('add_notification')
+    else:
+        form = FormForDoubt()  
+    return render(request,'doubtview.html', {'form': form})
+
+
+
+def index(request):
+    return render(request , 'index.html' )
+
+def indexstudent(request):
+    return render(request , 'indexstudent.html')
+    
