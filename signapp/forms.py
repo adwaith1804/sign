@@ -56,4 +56,12 @@ class FormForDoubt(forms.ModelForm):
         widgets={
             'Doubt':forms.TextInput(attrs={'class': 'form-control'}),
         }
+class FormForReply(forms.ModelForm):
+    
+    class Meta:
+        model = TableForDoubt
+        fields = ['reply']
+        widgets={
+            'reply':forms.TextInput(attrs={'class': 'form-control'}),
+        }
     

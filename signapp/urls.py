@@ -18,7 +18,11 @@ urlpatterns = [
     path('view_notification/', views.view_notification, name='view_notification'),
     path('search_students/', views.search_students, name='search_students'),
     path('table_doubt/', views.table_doubt, name='table_doubt'),
+    path('view_doubts/', views.view_doubts, name='view_doubts'),
+    path('edit_doubt/<str:doubtid>/', views.edit_doubt, name='edit_doubt'),
+    path('delete_dbt_confirm/<str:doubtid>/', views.delete_doubts, name='delete_dbt_confirm'),
+    path('view_teach_doubts/', views.view_teach_doubts, name='view_teach_doubts'),
+    path('insert_reply/<str:doubtid>/', views.insert_reply, name='insert_reply'),
+    path('edit_reply/<str:doubtid>/', views.edit_reply, name='edit_reply'),
     
-    
-
 ]

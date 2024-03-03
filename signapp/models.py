@@ -33,6 +33,7 @@ class TableForDoubt(models.Model):
     teacherloginid = models.CharField(max_length=10)
     studentloginid= models.CharField(max_length=50)
     currentdate= models.DateField(null=True)
+    reply=models.CharField(max_length=50)
     
 
     

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* Centering the table */
+      body {
+        display: flex;
+        justify-content: center;
+
+        margin: 0;
+      }
+
+      /* Adding some basic styles to the table */
+      table {
+        border-collapse: collapse;
+        width: 50%; /* Adjust the width as needed */
+      }
+
+      th,
+      td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f2f2f2; /* Adding a light background color to header cells */
+      }
+    </style>
+  </head>
+  <body>
+    <table border="1">
+      <tr>
+        <th>Name</th>
+        <th></th>
+        <th>Reply</th>
+        
+      </tr>
+      {% for my_model in my_models %}
+      <tr>
+        <td>{{ my_model.doubt}}</td>
+       <td>
+          <a href="{% url 'insert_reply' doubtid=my_model.doubtid %}">Reply</a>
+        </td>
+        <td>{{ my_model.reply}}</td>
+        <td>
+            <a href="{% url 'edit_reply' doubtid=my_model.doubtid %}">Edit Reply</a>
+          </td>
+         {% comment %} 
+        <td>
+        <a href="{% url 'delete_dbt_confirm' doubtid=my_model.doubtid%}"
+            >Delete</a
+          > 
+        </td> {% endcomment %}
+      </tr>
+      {% endfor %}
+      <!-- Add your table data here -->
+    </table>
+  </body>
+</html>
