@@ -17,16 +17,23 @@ class StudentsMod(models.Model):
     userName = models.CharField(max_length=6)
     gender = models.CharField(max_length=7)
     email = models.CharField(max_length=30,unique=True)
+    password = models.CharField(max_length=32, default=None, blank=True, null=True)
+    
+    
 class ModelForTeacher(models.Model):
     teachid = models.AutoField(primary_key=True)
     teachername = models.CharField(max_length=100)
     gender = models.CharField(max_length=100)
     age = models.CharField(max_length=30)
     email = models.EmailField(max_length=30,unique=True) 
+    
+    
 class TableOfNotifications(models.Model):
     notification_id = models.AutoField(primary_key=True)
     notification = models.CharField(max_length=70)
     current_date = models.DateField(null=True)
+    
+    
 class TableForDoubt(models.Model):
     doubtid = models.AutoField(primary_key=True)
     doubt = models.CharField(max_length=1000)

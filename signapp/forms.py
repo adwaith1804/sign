@@ -3,18 +3,18 @@ from .models import StudentsMod,ModelForTeacher,TableOfNotifications,TableForDou
 from datetime import date
 
 class ModelForStud(forms.ModelForm):
-    GENDER=(
-        ('male','Male'),
-        ('female','Female'),
-        ('other','Other'),
+    GENDER = (
+        ('male', 'Male'),
+        ('female', 'Female'),
+        ('other', 'Other'),
     )
-    gender=forms.ChoiceField(choices=GENDER,widget=forms.RadioSelect())
-    
+    gender = forms.ChoiceField(choices=GENDER, widget=forms.RadioSelect())
+
     class Meta:
         model = StudentsMod
-        fields = ['admissionno' ,'name', 'contact', 'guardianName','guradPhone','userName','gender','email']
+        fields = ['admissionno', 'name', 'contact', 'guardianName', 'guradPhone', 'userName', 'gender', 'email']
 
-        widgets={
+        widgets = {
             'admissionno': forms.NumberInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
             'name': forms.TextInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
             'contact': forms.NumberInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
@@ -24,6 +24,8 @@ class ModelForStud(forms.ModelForm):
             'gender': forms.Select(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
             'email': forms.EmailInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
         }
+
+        
 class TeacherForm(forms.ModelForm):
     GENDER=(
         ('male','Male'),

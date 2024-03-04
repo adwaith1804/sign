@@ -3,6 +3,9 @@ from .forms import ModelForStud, TeacherForm, NotificationForm,FormForDoubt,Form
 from .models import StudentsMod,ModelForTeacher,TableOfNotifications,TableForDoubt
 from datetime import date
 from django.db.models import Q
+import random
+import string
+import uuid
 
 #run on /sign
 # def insert_data(request):
@@ -16,16 +19,21 @@ from django.db.models import Q
 #     else:
 #         form = MyModelForm()
 #     return render(request,'registeration.html', {'form': form}) 
-
 def students_reg(request):
-    if request.method =='POST':
+    if request.method == 'POST':
         form = ModelForStud(request.POST)
         if form.is_valid():
+            # Generate a unique password using uuid and take a substring
+            password = str(uuid.uuid4())[:8]  # Change 8 to your desired length
+            form.instance.password = password
+
             form.save()
             return redirect('students_reg')
     else:
-        form = ModelForStud()  
-    return render(request,'studentsreg.html', {'form': form})
+        form = ModelForStud()
+
+    return render(request, 'studentsreg.html', {'form': form})
+
 
 def insert_data(request):
     if request.method == 'POST':
