@@ -1,13 +1,81 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Registration</title>
+    <title>Teacher Registration Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #393646; /* Dark theme background color */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .container {
+        max-width: 500px; /* Adjusted smaller container width */
+        width: 90%;
+        background-color: #6d5d6e; /* Darker container color */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Increased shadow intensity */
+      }
+
+      h2 {
+        text-align: center;
+        color: #fff; /* White text color */
+      }
+
+      form {
+        margin-top: 20px; /* Added space between header and form */
+      }
+
+      label {
+        margin-bottom: 10px;
+        color: #fff; /* White label text color */
+      }
+
+      input[type="text"],
+      input[type="number"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        font-size: 16px;
+        background-color: #ecf0f1; /* Lighter input background color */
+        color: #333; /* Dark text color */
+      }
+
+      button[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #3498db; /* Button background color */
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-size: 16px;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #2980b9; /* Button hover background color */
+      }
+    </style>
   </head>
   <body>
-    <h2>Registration</h2>
-    <form method="post" action="">
-      {% csrf_token %} {{ form.as_p }}
-      <button type="submit">Submit</button>
-    </form>
+    <div class="container">
+      <h2>Teacher Registration</h2>
+      <form method="post">
+        {% csrf_token %} {{ form.as_p }}
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   </body>
 </html>

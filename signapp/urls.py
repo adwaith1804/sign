@@ -4,7 +4,8 @@ from .import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('indexstudent', views.indexstudent, name='indexstudent'),
+    path('student_home/', views.indexstudent, name='student_home'),
+    path('teacher_home/', views.indexteacher, name='teacher_home'),
     path('insert_data/', views.insert_data, name='insert_data'),
     #path('view_table/', view_table, name='table'),
     path('students_reg/', views.students_reg , name='students_reg'),
@@ -24,5 +25,10 @@ urlpatterns = [
     path('view_teach_doubts/', views.view_teach_doubts, name='view_teach_doubts'),
     path('insert_reply/<str:doubtid>/', views.insert_reply, name='insert_reply'),
     path('edit_reply/<str:doubtid>/', views.edit_reply, name='edit_reply'),
+    path('login/<str:usertype>/', views.login_func, name='login'),
+    path('edit_student_individual/', views.edit_student_individual, name='edit_student_individual'),
+    path('edit_teacher_individual/', views.edit_teacher_individual, name='edit_teacher_individual'),
+    path('logout/', views.logout, name='logout'),
+    path('insert_attendance/<str:admissionno>/', views.insert_attendance, name='insert_attendance'),
     
 ]

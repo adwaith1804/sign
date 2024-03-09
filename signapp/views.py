@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import ModelForStud, TeacherForm, NotificationForm,FormForDoubt,FormForReply
+from .forms import ModelForStud, TeacherForm, NotificationForm,FormForDoubt,FormForReply,LoginForm,AttendanceForm
 from .models import StudentsMod,ModelForTeacher,TableOfNotifications,TableForDoubt
 from datetime import date
 from django.db.models import Q
+import random
+import string
+import uuid
 
 #run on /sign
 # def insert_data(request):
@@ -16,21 +19,28 @@ from django.db.models import Q
 #     else:
 #         form = MyModelForm()
 #     return render(request,'registeration.html', {'form': form}) 
-
 def students_reg(request):
-    if request.method =='POST':
+    if request.method == 'POST':
         form = ModelForStud(request.POST)
         if form.is_valid():
+            # Generate a unique password using uuid and take a substring
+            password = str(uuid.uuid4())[:8]  # Change 8 to your desired length
+            form.instance.password = password
+
             form.save()
             return redirect('students_reg')
     else:
-        form = ModelForStud()  
-    return render(request,'studentsreg.html', {'form': form})
+        form = ModelForStud()
+
+    return render(request, 'studentsreg.html', {'form': form})
+
 
 def insert_data(request):
     if request.method == 'POST':
         form = TeacherForm(request.POST)
         if form.is_valid():
+            password = str(uuid.uuid4())[:8]  # Change 8 to your desired length
+            form.instance.password = password
             form.save()
            
             return redirect('insert_data')
@@ -128,6 +138,9 @@ def table_doubt(request):
 def index(request):
     return render(request , 'index.html' )
 
+def indexteacher(request):
+    return render(request , 'indexteacher.html')
+
 
 def indexstudent(request):
     return render(request , 'indexstudent.html')
@@ -180,4 +193,86 @@ def edit_reply(request,doubtid):
     else:
         form = FormForReply(instance=doubt)
     return render(request, 'edit_reply.html', {'form': form})
-            
+
+def login_func(request, usertype):
+    if usertype == "Student":
+        if request.method == 'POST':
+            form = LoginForm(request.POST)
+            if form.is_valid():
+                email = form.cleaned_data['email']
+                password = form.cleaned_data['password']
+                try:
+                    student = StudentsMod.objects.get(email=email, password=password)
+                    request.session['admissionno'] = student.admissionno
+                    return redirect('student_home')
+                except StudentsMod.DoesNotExist:
+                    form.add_error(None, 'Invalid Username or Password')
+        else:
+            form = LoginForm()
+        return render(request, 'login.html', {'form': form})
+    elif usertype == "Teacher":
+        if request.method == 'POST':
+            form = LoginForm(request.POST)
+            if form.is_valid():
+                email = form.cleaned_data['email']
+                password = form.cleaned_data['password']
+                try:
+                    teacher = ModelForTeacher.objects.get(email=email, password=password)
+                    request.session['teachid'] = teacher.teachid
+                    return redirect('teacher_home')
+                except ModelForTeacher.DoesNotExist:
+                    form.add_error(None, 'Invalid Username or Password')
+        else:
+            form = LoginForm()  # Assigning form variable here
+        return render(request, 'login.html', {'form': form})
+    
+    
+def edit_student_individual(request):
+
+    admissionno = request.session.get('admissionno')
+    student = StudentsMod.objects.get(admissionno=admissionno)
+    if request.method == 'POST':
+        form = ModelForStud(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+            return redirect('student_home')  # Redirect to homepage after editing
+    else:
+        form = ModelForStud(instance=student)
+    return render(request, 'edit_student.html', {'form': form})
+
+def edit_teacher_individual(request):
+
+    teachid = request.session.get('teachid')
+    teacher = ModelForTeacher.objects.get(teachid=teachid)
+    if request.method == 'POST':
+        form = TeacherForm(request.POST, instance=teacher)
+        if form.is_valid():
+            form.save()
+            return redirect('teacher_home')  # Redirect to homepage after editing
+    else:
+        form = TeacherForm(instance=teacher)
+    return render(request, 'edit_teacher.html', {'form': form})
+ 
+def logout(request):
+    request.session.clear()
+    return redirect('index')
+
+def insert_attendance(request,admissionno):
+    teacherid = request.session.get('teachid')
+    
+    if request.method == 'POST':
+        form = AttendanceForm(request.POST)
+        if form.is_valid():
+            notifi = form.save(commit=False)
+            notifi.currentdate = date.today()
+            notifi.studentsaddmissionno = admissionno
+            notifi.teacherid = teacherid  # Assign the teacherid retrieved from the session
+            notifi.save()
+            return redirect('teacher_home')
+    else:
+        form = AttendanceForm()
+    return render(request, 'attendance_update.html', {'form': form})
+
+
+
+        

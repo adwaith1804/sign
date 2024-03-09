@@ -91,7 +91,12 @@
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link page-scroll" href="{% url 'edit_student_individual' %}">EDIT</a>
+            <a class="nav-link page-scroll" href="{% url 'search_students' %}"
+              >SEARCH <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link page-scroll" href="{% url 'edit_teacher_individual' %}">DETAILS</a>
           </li>
 
           <!-- Dropdown Menu -->
@@ -106,17 +111,17 @@
               >DATE</a
             >
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="article-details.html"
-                ><span class="item-text">ARTICLE DETAILS</span></a
+              <a class="dropdown-item" href="{% url 'search_students' %}"
+                ><span class="item-text">Add Attendance</span></a
               >
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="terms-conditions.html"
-                ><span class="item-text">TERMS CONDITIONS</span></a
+              <a class="dropdown-item" href="{% url '' %}"
+                ><span class="item-text">View Attendance</span></a
               >
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="privacy-policy.html"
+              {% comment %} <a class="dropdown-item" href="privacy-policy.html"
                 ><span class="item-text">PRIVACY POLICY</span></a
-              >
+              > {% endcomment %}
             </div>
           </li>
           <!-- end of dropdown menu -->
@@ -160,8 +165,8 @@
                 that
               </p>
               <a class="btn-solid-lg page-scroll" href="#register">REGISTER</a>
-              <a class="btn-outline-lg page-scroll" href="{% url 'logout' %}"
-                >LOG OUT</a
+              <a class="btn-outline-lg page-scroll" href="#instructor"
+                >DISCOVER</a
               >
             </div>
             <!-- end of text-container -->

@@ -1,14 +1,18 @@
+{% extends "student_header.html" %} {% block content %}
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<br />
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Search Results</title>
+
     <style>
       body {
         font-family: Arial, sans-serif;
         margin: 0;
-        padding: 20px;
+       ++ {% endcomment %}
         background-color: #f4f4f4;
       }
       h1 {
@@ -22,9 +26,9 @@
       input[type="text"] {
         padding: 10px;
         font-size: 16px;
-        border: 2px solid #ccc;
+        
         border-radius: 5px;
-        width: 300px;
+        width: 200px;
       }
       button[type="submit"] {
         padding: 10px 20px;
@@ -63,7 +67,7 @@
         color: #999;
       }
     </style>
-  </head>
+
   <body>
     {% include 'search_form.html' %} {% if query %}
     <h1>Search results for: "{{ query }}"</h1>
@@ -90,6 +94,12 @@
         <td>{{ student.userName }}</td>
         <td>{{ student.gender }}</td>
         <td>{{ student.email }}</td>
+        <td>
+          <a
+            href="{% url 'insert_attendance' admissionno=student.admissionno %}"
+            >Edit</a
+          >
+        </td>
       </tr>
       {% endfor %} {% else %}
       <tr>
@@ -98,4 +108,5 @@
       {% endif %}
     </table>
   </body>
-</html>
+{% comment %} </html> {% endcomment %}
+{%endblock%}
