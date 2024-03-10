@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ModelForStud, TeacherForm, NotificationForm,FormForDoubt,FormForReply,LoginForm,AttendanceForm
-from .models import StudentsMod,ModelForTeacher,TableOfNotifications,TableForDoubt
-from datetime import date
+from .models import StudentsMod,ModelForTeacher,TableOfNotifications,TableForDoubt,AttendanceMod
+from datetime import date,datetime
 from django.db.models import Q
 import random
 import string
@@ -272,6 +272,26 @@ def insert_attendance(request,admissionno):
     else:
         form = AttendanceForm()
     return render(request, 'attendance_update.html', {'form': form})
+
+def attendance_status(request):
+    if request.method == 'POST':
+        date_str = request.POST.get('date')
+        try:
+            date = datetime.strptime(date_str, '%Y-%m-%d').date()
+        except ValueError:
+            return render(request, 'error.html', {'error_message': 'Invalid date format'})
+        attendance_records = AttendanceMod.objects.filter(currentdate=date)
+        student_attendance = {}
+        for record in attendance_records:
+            if record.studentsaddmissionno not in student_attendance:
+                student_attendance[record.studentsaddmissionno] = {'name': '', 'status': ''}
+            student = StudentsMod.objects.get(admissionno=record.studentsaddmissionno)
+            student_name = student.name
+            student_attendance[record.studentsaddmissionno]['name'] = student_name
+            student_attendance[record.studentsaddmissionno]['status'] = record.attendancestatus
+        return render(request, 'attendance_status.html', {'student_attendance': student_attendance, 'date': date})
+    else:
+        return render(request, 'search_date.html')
 
 
 

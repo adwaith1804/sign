@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Attendance Status</title>
+  </head>
+  <body>
+    <h1>Attendance Status for {{ date }}</h1>
+    {% include 'search_date.html' %} {% if query %}
+    <br />
+    <h1>Search results for: "{{ query }}"</h1>
+    {% endif %}
+    <table>
+      <thead>
+        <tr>
+          <th>Admission Number</th>
+          <th>Name</th>
+          <th>Attendance Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for admissionno, data in student_attendance.items %}
+        <tr>
+          <td>{{ admissionno }}</td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.status }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
