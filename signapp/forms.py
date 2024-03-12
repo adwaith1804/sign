@@ -1,5 +1,5 @@
 from django import forms
-from .models import StudentsMod,ModelForTeacher,TableOfNotifications,TableForDoubt,LoginModel,AttendanceMod
+from .models import StudentsMod,ModelForTeacher,TableOfNotifications,TableForDoubt,LoginModel,AttendanceMod,ExamModel,AnswerModel
 from datetime import date
 
 class ModelForStud(forms.ModelForm):
@@ -96,3 +96,23 @@ class AttendanceForm(forms.ModelForm):
         
 
     }  
+
+class FormForExams(forms.ModelForm):
+    
+
+    class Meta:
+        model = ExamModel
+        fields = ['class_student', 'question', 'option1' , 'option2', 'option3', 'exam_date']
+
+        widgets = {
+            'class_student': forms.TextInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
+            'question': forms.Textarea(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
+            'option1': forms.Textarea(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
+            'option2': forms.Textarea(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
+            'option3': forms.Textarea(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
+            'exam_date': forms.DateInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;', 'type': 'date'}),
+        }    
+        
+class AnswerForm(forms.Form):
+    question_id = forms.CharField(widget=forms.HiddenInput)
+    answer = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}))

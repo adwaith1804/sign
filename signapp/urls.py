@@ -31,5 +31,11 @@ urlpatterns = [
     path('logout/', views.logout, name='logout'),
     path('insert_attendance/<str:admissionno>/', views.insert_attendance, name='insert_attendance'),
     path('attendance_status/', views.attendance_status, name='attendance_status'),
+    path('add_examination/', views.add_examination, name='add_examination'),
+    path('view_examinations/', views.view_examinations, name='view_examinations'),
+    path('edit_examination/<int:exam_key>/', views.edit_examination, name='edit_examination'),
+    path('delete_examination/<int:exam_key>/', views.delete_examination, name='delete_examination'),
+    path('exam_view/', views.exam_view, name='exam_view'),
+    path('save_answer/', views.save_answer, name='save_answer'),
     
 ]

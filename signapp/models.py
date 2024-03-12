@@ -58,5 +58,23 @@ class AttendanceMod(models.Model):
     attendancestatus=models.CharField(max_length=11)
 
         
-      
+class ExamModel(models.Model):
+    exam_key = models.AutoField(primary_key=True)
+    class_student = models.CharField( max_length=5)
+    question = models.CharField( max_length=100)
+    option1 = models.CharField(max_length=50)
+    option2 = models.CharField(max_length=50)
+    option3 = models.CharField(max_length=50)
+    teacher_id = models.CharField(max_length=5)
+    current_date = models.DateField(auto_now=True)
+    exam_date = models.DateField(null=True)
+
+class AnswerModel(models.Model):
+    primary_key = models.AutoField(primary_key=True)
+    question_id = models.CharField(max_length=50)
+    answer = models.CharField( max_length=50)
+    login_id = models.CharField( max_length=50)
+    current_date = models.DateField( auto_now=True)
+    
+
 # Create your models here.

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exam</title>
+</head>
+<body>
+    <h1>Exam Questions</h1>
+    <form method="post" action="{% url 'save_answer' %}">
+        {% csrf_token %}
+        {% for question in questions %}
+        <p>{{ question.question }}</p>
+        <ul>
+            {% for option in question.options %}
+            <li>
+                <input type="radio" name="answer" value="{{ option }}">
+                <label>{{ option }}</label>
+            </li>
+            {% endfor %}
+        </ul>
+        <input type="hidden" name="question_id" value="{{ question.question_id }}">
+        {% endfor %}
+        <button type="submit">Submit Answers</button>
+    </form>
+</body>
+</html>

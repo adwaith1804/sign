@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import ModelForStud, TeacherForm, NotificationForm,FormForDoubt,FormForReply,LoginForm,AttendanceForm
-from .models import StudentsMod,ModelForTeacher,TableOfNotifications,TableForDoubt,AttendanceMod
+from .forms import ModelForStud, TeacherForm, NotificationForm,FormForDoubt,FormForReply,LoginForm,AttendanceForm,FormForExams,AnswerForm
+from .models import StudentsMod,ModelForTeacher,TableOfNotifications,TableForDoubt,AttendanceMod,ExamModel,AnswerModel
 from datetime import date,datetime
 from django.db.models import Q
 import random
 import string
 import uuid
+from django.utils import timezone
+from datetime import datetime
 
 #run on /sign
 # def insert_data(request):
@@ -110,7 +112,8 @@ def add_notification(request):
 def view_notification(request):
     my_models = TableOfNotifications.objects.all()
     return render(request, 'view_notification.html', {'my_models': my_models})
-from django.db.models import Q
+
+
 
 def search_students(request):
     query = request.GET.get('query')
@@ -293,6 +296,93 @@ def attendance_status(request):
     else:
         return render(request, 'search_date.html')
 
+def add_examination(request):
+    teacherid = request.session.get('teachid')
+    if teacherid is None:
+        return redirect('')
+    if request.method =='POST':
+        form = FormForExams(request.POST)
+        if form.is_valid():
+            exam_instance = form.save(commit=False)
+            exam_instance.teacher_id = teacherid  # Assign teacher_id to the instance
+            exam_instance.save()
+            form.save()
+            return redirect('add_examination')
+    else:
+        form = FormForExams()  
+    return render(request,'add_examinations.html', {'form': form})
 
 
+def view_examinations(request):
+    teacher_id = request.session.get('teachid')
+    if teacher_id is None:
+        return redirect('login')  # Redirect to login page or wherever appropriate if teacher_id is not found in session
+    
+    # Retrieve all exam instances for the current teacher
+    exams = ExamModel.objects.filter(teacher_id=teacher_id)
+    
+    return render(request, 'view_examinations_teacher.html', {'exams': exams})
         
+def edit_examination(request, exam_key):
+    teacher_id = request.session.get('teachid')
+    if teacher_id is None:
+        return redirect('login')  # Redirect to login page or wherever appropriate if teacher_id is not found in session
+    
+    # Retrieve the exam instance to edit
+    exam_instance = get_object_or_404(ExamModel, pk=exam_key, teacher_id=teacher_id)
+    
+    if request.method == 'POST':
+        form = FormForExams(request.POST, instance=exam_instance)
+        if form.is_valid():
+            form.save()
+            return redirect('view_examinations')
+    else:
+        form = FormForExams(instance=exam_instance)
+        
+    return render(request, 'edit_examinations.html', {'form': form})
+
+def delete_examination(request, exam_key):
+    # Retrieve the exam instance to delete
+    exam_instance = get_object_or_404(ExamModel, pk=exam_key)
+    exam_instance.delete()
+    return redirect('teacher_home') 
+
+
+
+
+def exam_view(request):
+    if 'admissionno' in request.session:
+        student_admissionno = request.session['admissionno']
+        student = StudentsMod.objects.filter(admissionno=student_admissionno).first()
+        if student:
+            student_class = student.classstud
+            current_date = date.today()
+            exams = ExamModel.objects.filter(exam_date=current_date, class_student=student_class)
+            if exams:
+                questions = []
+                for exam in exams:
+                    question = {
+                        'question': exam.question,
+                        'options': [exam.option1, exam.option2, exam.option3],
+                        'question_id': exam.exam_key
+                    }
+                    questions.append(question)
+                form = AnswerForm()
+                return render(request, 'view_exams.html', {'questions': questions, 'form': form})
+            else:
+                questions = [] 
+                return render(request, 'no_exam.html', {'questions': questions})
+        else:
+            return render(request, 'no_student.html') 
+    else:
+        return render(request, 'no_session.html')
+def save_answer(request):
+    if request.method == 'POST':
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            question_id = form.cleaned_data['question_id']
+            answer = form.cleaned_data['answer']
+            login_id = request.session.get('admissionno')  # Assuming you set this in the login process
+            AnswerModel.objects.create(question_id=question_id, answer=answer, login_id=login_id)
+            return redirect('exam_view')
+    return redirect('exam_view')

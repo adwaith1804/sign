@@ -96,6 +96,11 @@
             >
           </li>
           <li class="nav-item">
+            <a class="nav-link page-scroll" href="{% url 'view_examinations' %}"
+              >View Examinations <span class="sr-only"></span></a
+            >
+          </li>
+          <li class="nav-item">
             <a class="nav-link page-scroll" href="{% url 'edit_teacher_individual' %}">DETAILS</a>
           </li>
 
@@ -119,10 +124,11 @@
                 ><span class="item-text">View Attendance</span></a
               >
               <div class="dropdown-divider"></div>
-              {% comment %} <a class="dropdown-item" href="privacy-policy.html"
-                ><span class="item-text">PRIVACY POLICY</span></a
-              > {% endcomment %}
+              <a class="dropdown-item" href="{% url 'add_examination' %}"
+                ><span class="item-text">ADD Examinations</span></a
+              >
             </div>
+            
           </li>
           <!-- end of dropdown menu -->
 

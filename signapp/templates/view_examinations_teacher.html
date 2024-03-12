@@ -1,0 +1,51 @@
+<!-- view_examinations.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Examinations</title>
+  </head>
+  <body>
+    <h1>View Examinations</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Exam Key</th>
+          <th>Class Student</th>
+          <th>Question</th>
+          <th>Option 1</th>
+          <th>Option 2</th>
+          <th>Option 3</th>
+          <th>Current Date</th>
+          <th>Exam Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for exam in exams %}
+        <tr>
+          <td>{{ exam.exam_key }}</td>
+          <td>{{ exam.class_student }}</td>
+          <td>{{ exam.question }}</td>
+          <td>{{ exam.option1 }}</td>
+          <td>{{ exam.option2 }}</td>
+          <td>{{ exam.option3 }}</td>
+          <td>{{ exam.current_date }}</td>
+          <td>{{ exam.exam_date }}</td>
+          <td>
+            <a href="{% url 'edit_examination' exam_key=exam.exam_key %}"
+              >Edit</a
+            >
+          </td>
+           <td>
+            <a href="{% url 'delete_examination' exam_key=exam.exam_key %}"
+              >Delete</a
+            >
+          </td>
+          
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
