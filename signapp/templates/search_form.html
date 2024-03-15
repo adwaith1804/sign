@@ -6,9 +6,28 @@
     <title>Document</title>
   </head>
   <body>
-    <form method="GET" action="{% url 'search_students' %}">
-      <input type="text" name="query" placeholder="Search..." />
-      <button type="submit">Search</button>
+    <form
+      method="GET"
+      action="{% url 'search_students' %}"
+      class="w-full max-w-sm"
+    >
+      <div class="flex items-center border-b border-teal-500 py-2">
+        <input
+          type="text"
+          name="query"
+          placeholder="Search..."
+          class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+          type="text"
+          placeholder="Jane Doe"
+          aria-label="Full name"
+        />
+        <button
+          type="submit"
+          class="flex-shrink-0 border-transparent border-4 text-teal-500 hover:text-teal-800 text-sm py-1 px-2 rounded text-blue-500"
+        >
+          Search
+        </button>
+      </div>
     </form>
   </body>
 </html>

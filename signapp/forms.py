@@ -27,21 +27,24 @@ class ModelForStud(forms.ModelForm):
 
         
 class TeacherForm(forms.ModelForm):
-    GENDER=(
-        ('male','Male'),
-        ('female','Female'),
-        ('other','Other'),
+    GENDER = (
+        ('male', 'Male'),
+        ('female', 'Female'),
+        ('other', 'Other'),
     )
+    
+    gender = forms.ChoiceField(choices=GENDER, widget=forms.RadioSelect(attrs={'class': 'form-radio'}))
+    
     class Meta:
         model = ModelForTeacher
-        fields = ['teachername' ,'gender', 'age', 'email']
-    gender=forms.ChoiceField(choices=GENDER,widget=forms.RadioSelect())
-    widgets = {
-        'teachername': forms.TextInput(attrs={'class': 'form-control'}),
-        'gender': forms.Select(attrs={'class': 'form-control'}),
-        'age': forms.NumberInput(attrs={'class': 'form-control'}),
-        'email': forms.EmailInput(attrs={'class': 'form-control'}),
-    }
+        fields = ['teachername', 'gender', 'age', 'email']
+        widgets = {
+            'teachername': forms.TextInput(attrs={'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-black-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name'}),
+            'age': forms.NumberInput(attrs={'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-black-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name'}),
+            'gender': forms.Select(attrs={'class': 'form-control', 'style': 'appearance-none checked:bg-gray-900 checked:border-transparent ...;'}),
+            'email': forms.EmailInput(attrs={'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-black-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name'}),
+
+        }
 class NotificationForm(forms.ModelForm):
     current_date = forms.DateField(widget=forms.HiddenInput(),initial=date.today)
     class Meta:

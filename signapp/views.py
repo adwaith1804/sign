@@ -121,7 +121,7 @@ def search_students(request):
     
     if query:
         results = StudentsMod.objects.filter(
-            Q(name__icontains=query) | Q(admissionno__icontains=query)
+            Q(name__icontains=query) | Q(admissionno__icontains=query) | Q(classstud=query)
         )
     
     return render(request, 'search_results.html', {'results': results, 'query': query})
@@ -376,13 +376,31 @@ def exam_view(request):
             return render(request, 'no_student.html') 
     else:
         return render(request, 'no_session.html')
+
 def save_answer(request):
     if request.method == 'POST':
-        form = AnswerForm(request.POST)
-        if form.is_valid():
-            question_id = form.cleaned_data['question_id']
-            answer = form.cleaned_data['answer']
-            login_id = request.session.get('admissionno')  # Assuming you set this in the login process
-            AnswerModel.objects.create(question_id=question_id, answer=answer, login_id=login_id)
-            return redirect('exam_view')
+        login_id = request.session.get('admissionno')
+        for key, value in request.POST.items():
+            if key.startswith('question_'):
+                question_id = key.replace('question_', '')
+                AnswerModel.objects.create(question_id=question_id, answer=value, login_id=login_id)
+        return redirect('exam_view')
     return redirect('exam_view')
+
+def teacher_exam_answers(request, admissionno):
+    teacher_id = request.session.get('teachid')  # Assuming teacher's ID is stored in the session
+    student = StudentsMod.objects.filter(admissionno=admissionno, usertype='Student').first()
+    if not student:
+        return render(request, 'no_student.html')
+
+    exams = ExamModel.objects.filter(class_student=student.classstud, teacher_id=teacher_id)
+
+    student_data = []
+    for exam in exams:
+        attempted_exam = AnswerModel.objects.filter(question_id=exam.exam_key, login_id=admissionno).first()
+        student_data.append({
+            'exam': exam,
+            'attempt': attempted_exam.answer if attempted_exam else 'Not Attempted'
+        })
+
+    return render(request, 'teacher_exam_answers.html', {'student': student, 'student_data': student_data,'exam': attempted_exam})

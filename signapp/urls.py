@@ -37,5 +37,6 @@ urlpatterns = [
     path('delete_examination/<int:exam_key>/', views.delete_examination, name='delete_examination'),
     path('exam_view/', views.exam_view, name='exam_view'),
     path('save_answer/', views.save_answer, name='save_answer'),
+    path('teacher_exam_answers/<str:admissionno>/', views.teacher_exam_answers, name='teacher_exam_answers'),
     
 ]

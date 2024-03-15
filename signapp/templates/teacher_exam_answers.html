@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Teacher Student Exam Answers</title>
+    <!-- Include Tailwind CSS via CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-100">
+    <div class="container mx-auto my-8 p-8 bg-white rounded shadow-md">
+      <h1 class="text-2xl font-bold mb-4">Student: {{student.name}}</h1>
+      <table class="w-full">
+        <thead>
+          <tr class="bg-gray-200">
+            <th class="px-4 py-2">Question</th>
+            <th class="px-4 py-2">Option 1</th>
+            <th class="px-4 py-2">Option 2</th>
+            <th class="px-4 py-2">Option 3</th>
+            <th class="px-4 py-2">Attempted Answer</th>
+            <th class="px-4 py-2">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in student_data %}
+          <tr>
+            <td class="px-4 py-2">{{ data.exam.question }}</td>
+            <td class="px-4 py-2">{{ data.exam.option1 }}</td>
+            <td class="px-4 py-2">{{ data.exam.option2 }}</td>
+            <td class="px-4 py-2">{{ data.exam.option3 }}</td>
+            <td class="px-4 py-2">{{ data.attempt }}</td>
+            <td class="px-4 py-2">{{ exam.current_date }}</td>
+            <!-- Assuming exam.current_date is available -->
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

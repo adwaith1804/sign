@@ -9,16 +9,17 @@
     <form method="post" action="{% url 'save_answer' %}">
         {% csrf_token %}
         {% for question in questions %}
-        <p>{{ question.question }}</p>
-        <ul>
-            {% for option in question.options %}
-            <li>
-                <input type="radio" name="answer" value="{{ option }}">
-                <label>{{ option }}</label>
-            </li>
-            {% endfor %}
-        </ul>
-        <input type="hidden" name="question_id" value="{{ question.question_id }}">
+        <div>
+            <p>{{ question.question }}</p>
+            <ul>
+                {% for option in question.options %}
+                <li>
+                    <input type="radio" name="question_{{ question.question_id }}" value="{{ option }}">
+                    <label>{{ option }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
         {% endfor %}
         <button type="submit">Submit Answers</button>
     </form>

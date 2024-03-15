@@ -75,6 +75,7 @@ class AnswerModel(models.Model):
     answer = models.CharField( max_length=50)
     login_id = models.CharField( max_length=50)
     current_date = models.DateField( auto_now=True)
+    #teacher_id = models.CharField(max_length=50)
     
 
 # Create your models here.
