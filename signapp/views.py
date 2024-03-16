@@ -387,20 +387,36 @@ def save_answer(request):
         return redirect('exam_view')
     return redirect('exam_view')
 
+from collections import defaultdict
+
 def teacher_exam_answers(request, admissionno):
     teacher_id = request.session.get('teachid')  # Assuming teacher's ID is stored in the session
     student = StudentsMod.objects.filter(admissionno=admissionno, usertype='Student').first()
+    
     if not student:
         return render(request, 'no_student.html')
 
     exams = ExamModel.objects.filter(class_student=student.classstud, teacher_id=teacher_id)
 
-    student_data = []
+    student_data_by_date = defaultdict(list)
+    
     for exam in exams:
-        attempted_exam = AnswerModel.objects.filter(question_id=exam.exam_key, login_id=admissionno).first()
+        attempted_exams = AnswerModel.objects.filter(question_id=exam.exam_key, login_id=admissionno)
+        for attempted_exam in attempted_exams:
+            student_data_by_date[attempted_exam.current_date].append({
+                'exam': exam,
+                'attempt': attempted_exam.answer,
+                
+            })
+
+    student_data = []
+    for date, data in student_data_by_date.items():
+        correct_count = sum(1 for d in data if d['attempt'] == d['exam'].answer)
+        wrong_count = len(data) - correct_count
         student_data.append({
-            'exam': exam,
-            'attempt': attempted_exam.answer if attempted_exam else 'Not Attempted'
+            'date': date,
+            'correct_count': correct_count,
+            'wrong_count': wrong_count
         })
 
-    return render(request, 'teacher_exam_answers.html', {'student': student, 'student_data': student_data,'exam': attempted_exam})
+    return render(request, 'teacher_exam_answers.html', {'student': student, 'student_data': student_data,'answer_model':attempted_exams})

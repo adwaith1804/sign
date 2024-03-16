@@ -105,7 +105,7 @@ class FormForExams(forms.ModelForm):
 
     class Meta:
         model = ExamModel
-        fields = ['class_student', 'question', 'option1' , 'option2', 'option3', 'exam_date']
+        fields = ['class_student', 'question', 'option1' , 'option2', 'option3', 'exam_date','answer']
 
         widgets = {
             'class_student': forms.TextInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
@@ -113,6 +113,7 @@ class FormForExams(forms.ModelForm):
             'option1': forms.Textarea(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
             'option2': forms.Textarea(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
             'option3': forms.Textarea(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
+            'answer': forms.Textarea(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
             'exam_date': forms.DateInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;', 'type': 'date'}),
         }    
         

@@ -68,6 +68,7 @@ class ExamModel(models.Model):
     teacher_id = models.CharField(max_length=5)
     current_date = models.DateField(auto_now=True)
     exam_date = models.DateField(null=True)
+    answer = models.CharField(max_length=50)
 
 class AnswerModel(models.Model):
     primary_key = models.AutoField(primary_key=True)
