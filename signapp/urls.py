@@ -38,5 +38,6 @@ urlpatterns = [
     path('exam_view/', views.exam_view, name='exam_view'),
     path('save_answer/', views.save_answer, name='save_answer'),
     path('teacher_exam_answers/<str:admissionno>/', views.teacher_exam_answers, name='teacher_exam_answers'),
+    path('add_classes', views.add_classes, name='add_classes'),
     
 ]

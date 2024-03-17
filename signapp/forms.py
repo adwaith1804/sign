@@ -1,5 +1,5 @@
 from django import forms
-from .models import StudentsMod,ModelForTeacher,TableOfNotifications,TableForDoubt,LoginModel,AttendanceMod,ExamModel,AnswerModel
+from .models import StudentsMod,ModelForTeacher,TableOfNotifications,TableForDoubt,LoginModel,AttendanceMod,ExamModel,AnswerModel,OnlineClassModel
 from datetime import date
 
 class ModelForStud(forms.ModelForm):
@@ -120,3 +120,15 @@ class FormForExams(forms.ModelForm):
 class AnswerForm(forms.Form):
     question_id = forms.CharField(widget=forms.HiddenInput)
     answer = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+class FormForClasses(forms.ModelForm):
+    
+    class Meta:
+        model = OnlineClassModel
+        fields = ['dateofclass', 'timeofclass', 'classofstudent']
+
+        widgets = {
+            'dateofclass': forms.DateInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;', 'type': 'date'}),
+            'timeofclass': forms.TimeInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;', 'type': 'time'}),
+            'classofstudent': forms.TextInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
+        }

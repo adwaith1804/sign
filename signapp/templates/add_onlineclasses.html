@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="form_div">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form_div">
+              <label for="id_dateofclass">Date of Class:</label>
+              {{ form.dateofclass }}
+            </div>
+            <div class="form_div">
+              <label for="id_timeofclass">Time of Class:</label>
+              {{ form.timeofclass }}
+            </div>
+            <div class="form_div">
+              <label for="id_classofstudent">Class of Student:</label>
+              {{ form.classofstudent }}
+            </div>
+            <button type="submit">Save</button>
+          </form>
+    </div>
+  </body>
+</html>
