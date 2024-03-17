@@ -419,7 +419,6 @@ def teacher_exam_answers(request, admissionno):
             'wrong_count': wrong_count
         })
 
-<<<<<<< HEAD
     return render(request, 'teacher_exam_answers.html', {'student': student, 'student_data': student_data,'answer_model':attempted_exams})
 
 def add_classes(request):
@@ -437,6 +436,4 @@ def add_classes(request):
     else:
         form = FormForClasses()  
     return render(request,'add_onlineclasses.html', {'form': form})
-=======
-    return render(request, 'teacher_exam_answers.html', {'student': student, 'student_data': student_data})
->>>>>>> 956f2d9a1e7e999045a46eddd700bb0c6143bd6e
+    
