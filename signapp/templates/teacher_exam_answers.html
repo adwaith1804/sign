@@ -25,12 +25,17 @@
                 <td class="px-4 py-2">{{ data.correct_count }}</td>
                 <td class="px-4 py-2">{{ data.wrong_count }}</td>
             </tr>
+            {% for attempt in data.answers %}
+            <tr>
+                <td colspan="3" class="border-t px-4 py-2">
+                    <p><strong>Question:</strong> {{ attempt.exam.question }}</p>
+                    <p><strong>Answer:</strong> {{ attempt.attempted_exam.answer }}</p>
+                </td>
+            </tr>
+            {% endfor %}
         {% endfor %}
         </tbody>
     </table>
-
-
-
 </div>
 </body>
 </html>

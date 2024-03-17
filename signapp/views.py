@@ -405,20 +405,21 @@ def teacher_exam_answers(request, admissionno):
         for attempted_exam in attempted_exams:
             student_data_by_date[attempted_exam.current_date].append({
                 'exam': exam,
-                'attempt': attempted_exam.answer,
-                
+                'attempted_exam': attempted_exam,
             })
 
     student_data = []
     for date, data in student_data_by_date.items():
-        correct_count = sum(1 for d in data if d['attempt'] == d['exam'].answer)
+        correct_count = sum(1 for d in data if d['attempted_exam'].answer == d['exam'].answer)
         wrong_count = len(data) - correct_count
         student_data.append({
             'date': date,
+            'answers': data,  # Contains both question and answer for each attempt
             'correct_count': correct_count,
             'wrong_count': wrong_count
         })
 
+<<<<<<< HEAD
     return render(request, 'teacher_exam_answers.html', {'student': student, 'student_data': student_data,'answer_model':attempted_exams})
 
 def add_classes(request):
@@ -436,3 +437,6 @@ def add_classes(request):
     else:
         form = FormForClasses()  
     return render(request,'add_onlineclasses.html', {'form': form})
+=======
+    return render(request, 'teacher_exam_answers.html', {'student': student, 'student_data': student_data})
+>>>>>>> 956f2d9a1e7e999045a46eddd700bb0c6143bd6e
