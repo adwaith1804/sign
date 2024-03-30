@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('student_home/', views.indexstudent, name='student_home'),
     path('teacher_home/', views.indexteacher, name='teacher_home'),
+    path('admin_index/', views.admin_index, name='admin_index'),
     path('insert_data/', views.insert_data, name='insert_data'),
     #path('view_table/', view_table, name='table'),
     path('students_reg/', views.students_reg , name='students_reg'),

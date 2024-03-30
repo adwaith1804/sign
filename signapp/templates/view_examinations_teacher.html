@@ -1,50 +1,67 @@
 <!-- view_examinations.html -->
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Examinations</title>
-  </head>
-  <body>
-    <h1>View Examinations</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Exam Key</th>
-          <th>Class Student</th>
-          <th>Question</th>
-          <th>Option 1</th>
-          <th>Option 2</th>
-          <th>Option 3</th>
-          <th>Current Date</th>
-          <th>Exam Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for exam in exams %}
-        <tr>
-          <td>{{ exam.exam_key }}</td>
-          <td>{{ exam.class_student }}</td>
-          <td>{{ exam.question }}</td>
-          <td>{{ exam.option1 }}</td>
-          <td>{{ exam.option2 }}</td>
-          <td>{{ exam.option3 }}</td>
-          <td>{{ exam.current_date }}</td>
-          <td>{{ exam.exam_date }}</td>
-          <td>
-            <a href="{% url 'edit_examination' exam_key=exam.exam_key %}"
-              >Edit</a
-            >
-          </td>
-          <td>
-            <a href="{% url 'delete_examination' exam_key=exam.exam_key %}"
-              >Delete</a
-            >
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </body>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+      body{
+        background-image: repeating-linear-gradient(45deg, rgba(118, 118, 118, 0.05) 0px, rgba(118, 118, 118, 0.05) 19px,rgba(59, 59, 59, 0.05) 19px, rgba(59, 59, 59, 0.05) 67px,rgba(195, 195, 195, 0.05) 67px, rgba(195, 195, 195, 0.05) 87px,rgba(121, 121, 121, 0.05) 87px, rgba(121, 121, 121, 0.05) 133px,rgba(250, 250, 250, 0.05) 133px, rgba(250, 250, 250, 0.05) 172px,rgba(106, 106, 106, 0.05) 172px, rgba(106, 106, 106, 0.05) 197px,rgba(151, 151, 151, 0.05) 197px, rgba(151, 151, 151, 0.05) 226px,rgba(219, 219, 219, 0.05) 226px, rgba(219, 219, 219, 0.05) 260px),repeating-linear-gradient(45deg, rgba(70, 70, 70, 0.05) 0px, rgba(70, 70, 70, 0.05) 40px,rgba(220, 220, 220, 0.05) 40px, rgba(220, 220, 220, 0.05) 79px,rgba(95, 95, 95, 0.05) 79px, rgba(95, 95, 95, 0.05) 103px,rgba(15, 15, 15, 0.05) 103px, rgba(15, 15, 15, 0.05) 148px,rgba(51, 51, 51, 0.05) 148px, rgba(51, 51, 51, 0.05) 186px,rgba(225, 225, 225, 0.05) 186px, rgba(225, 225, 225, 0.05) 202px,rgba(60, 60, 60, 0.05) 202px, rgba(60, 60, 60, 0.05) 239px,rgba(67, 67, 67, 0.05) 239px, rgba(67, 67, 67, 0.05) 259px),repeating-linear-gradient(45deg, rgba(146, 146, 146, 0.05) 0px, rgba(146, 146, 146, 0.05) 40px,rgba(166, 166, 166, 0.05) 40px, rgba(166, 166, 166, 0.05) 54px,rgba(156, 156, 156, 0.05) 54px, rgba(156, 156, 156, 0.05) 71px,rgba(134, 134, 134, 0.05) 71px, rgba(134, 134, 134, 0.05) 95px,rgba(77, 77, 77, 0.05) 95px, rgba(77, 77, 77, 0.05) 111px,rgba(26, 26, 26, 0.05) 111px, rgba(26, 26, 26, 0.05) 153px,rgba(46, 46, 46, 0.05) 153px, rgba(46, 46, 46, 0.05) 202px,rgba(197, 197, 197, 0.05) 202px, rgba(197, 197, 197, 0.05) 216px),linear-gradient(90deg, rgb(30, 178, 248),rgb(46, 36, 197));
+
+      }
+      .body-div{
+        background-image: linear-gradient(331deg, transparent 0%, transparent 24%,rgba(23,1,244, 0.07) 24%, rgba(23,1,244, 0.07) 25%,transparent 25%, transparent 100%),linear-gradient(196deg, transparent 0%, transparent 25%,rgba(23,1,244, 0.07) 25%, rgba(23,1,244, 0.07) 36%,transparent 36%, transparent 100%),linear-gradient(331deg, transparent 0%, transparent 63%,rgba(23,1,244, 0.07) 63%, rgba(23,1,244, 0.07) 69%,transparent 69%, transparent 100%),linear-gradient(286deg, rgb(246,247,248),rgb(246,247,248));
+
+      }
+      
+    </style>
+</head>
+<body class="bg-gray-100">
+    <h1 class="text-3xl font-bold text-center my-8 text-gray-100 leading-tight">View Examinations</h1>
+    <div class="mx-auto max-w-4xl">
+      <div class="w-full bg-white shadow-md rounded border-collapse box-table body-div">
+        <table class="w-full border-collapse border border-gray-300">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border border-gray-300 px-4 py-2">Exam Key</th>
+                    <th class="border border-gray-300 px-4 py-2">Class Student</th>
+                    <th class="border border-gray-300 px-4 py-2">Question</th>
+                    <th class="border border-gray-300 px-4 py-2">Option 1</th>
+                    <th class="border border-gray-300 px-4 py-2">Option 2</th>
+                    <th class="border border-gray-300 px-4 py-2">Option 3</th>
+                    <th class="border border-gray-300 px-4 py-2">Current Date</th>
+                    <th class="border border-gray-300 px-4 py-2">Exam Date</th>
+                    <th class="border border-gray-300 px-4 py-2">Actions</th>
+                    <th class="border border-gray-300 px-4 py-2">Rejection</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for exam in exams %}
+                <tr>
+                    <td class="border border-gray-300 px-4 py-2">{{ exam.exam_key }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ exam.class_student }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ exam.question }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ exam.option1 }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ exam.option2 }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ exam.option3 }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ exam.current_date }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ exam.exam_date }}</td>
+                    <td class="border border-gray-300 px-4 py-2">
+                      <br>
+                      <a href="{% url 'edit_examination' exam_key=exam.exam_key %}" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline">Edit</a>
+                  
+                    <td class="border border-gray-300 px-4 py-2">
+                      <a href="{% url 'delete_examination' exam_key=exam.exam_key %}" class="inline-block bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline ml-2">Delete</a>
+                      
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+  </div>
+</body>
 </html>

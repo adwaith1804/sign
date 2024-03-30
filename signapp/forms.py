@@ -15,14 +15,14 @@ class ModelForStud(forms.ModelForm):
         fields = ['admissionno', 'name', 'classstud' , 'contact', 'guardianName', 'guradPhone', 'userName', 'gender', 'email']
 
         widgets = {
-            'admissionno': forms.NumberInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
-            'name': forms.TextInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
-            'contact': forms.NumberInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
-            'guardianName': forms.TextInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
-            'guradPhone': forms.NumberInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
-            'userName': forms.TextInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
-            'gender': forms.Select(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;'}),
+            'admissionno': forms.NumberInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;', 'name': 'admission'}),
+            'name': forms.TextInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px; ', 'name': 'name'}),
+            'contact': forms.NumberInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;', 'name': 'class'}),
+            'guardianName': forms.TextInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;', 'name': 'contact'}),
+            'guradPhone': forms.NumberInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;', 'name': 'guardian'}),
+            'userName': forms.TextInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;', 'name': 'usernme'}),
+            'gender': forms.Select(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;', 'name': 'gender'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'style': 'border: 1px solid #ccc; padding: 10px; border-radius: 5px;', 'name': 'email'}),
         }
 
         
@@ -39,10 +39,10 @@ class TeacherForm(forms.ModelForm):
         model = ModelForTeacher
         fields = ['teachername', 'gender', 'age', 'email']
         widgets = {
-            'teachername': forms.TextInput(attrs={'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-black-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name'}),
-            'age': forms.NumberInput(attrs={'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-black-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name'}),
+            'teachername': forms.TextInput(attrs={'class': 'custom-control-input" id="grid-first-name'}),
+            'age': forms.NumberInput(attrs={'class': 'custom-control-input" id="grid-first-name'}),
             'gender': forms.Select(attrs={'class': 'form-control', 'style': 'appearance-none checked:bg-gray-900 checked:border-transparent ...;'}),
-            'email': forms.EmailInput(attrs={'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-black-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name'}),
+            'email': forms.EmailInput(attrs={'class': 'custom-control-input" id="grid-first-name'}),
 
         }
 class NotificationForm(forms.ModelForm):
@@ -75,11 +75,11 @@ class LoginForm(forms.ModelForm):
         model = LoginModel
         fields = ['email','password']
     
-    widgets = {
-        'email': forms.EmailInput(attrs={'class': 'form-control'}),
-        'password': forms.PasswordInput(attrs={'class': 'form-control'}),
+        widgets = {
+        'email': forms.EmailInput(attrs={'class': 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'}),
+        'password': forms.PasswordInput(attrs={'class': 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'}),
 
-    }  
+        }  
     
 class AttendanceForm(forms.ModelForm):
     currentdate = forms.DateField(widget=forms.HiddenInput(),initial=date.today)

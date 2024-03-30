@@ -19,18 +19,23 @@
     />
     <style>
       body{
-        background-image: radial-gradient(circle at center center, transparent,rgb(33,33,33)),repeating-linear-gradient(135deg, rgb(33,33,33) 0px, rgb(33,33,33) 2px,transparent 2px, transparent 10px,rgb(33,33,33) 10px, rgb(33,33,33) 11px,transparent 11px, transparent 21px),repeating-linear-gradient(45deg, rgb(47,47,47) 0px, rgb(47,47,47) 4px,transparent 4px, transparent 8px),linear-gradient(90deg, rgb(33,33,33),rgb(33,33,33));
+        background-image: repeating-linear-gradient(45deg, rgba(118, 118, 118, 0.05) 0px, rgba(118, 118, 118, 0.05) 19px,rgba(59, 59, 59, 0.05) 19px, rgba(59, 59, 59, 0.05) 67px,rgba(195, 195, 195, 0.05) 67px, rgba(195, 195, 195, 0.05) 87px,rgba(121, 121, 121, 0.05) 87px, rgba(121, 121, 121, 0.05) 133px,rgba(250, 250, 250, 0.05) 133px, rgba(250, 250, 250, 0.05) 172px,rgba(106, 106, 106, 0.05) 172px, rgba(106, 106, 106, 0.05) 197px,rgba(151, 151, 151, 0.05) 197px, rgba(151, 151, 151, 0.05) 226px,rgba(219, 219, 219, 0.05) 226px, rgba(219, 219, 219, 0.05) 260px),repeating-linear-gradient(45deg, rgba(70, 70, 70, 0.05) 0px, rgba(70, 70, 70, 0.05) 40px,rgba(220, 220, 220, 0.05) 40px, rgba(220, 220, 220, 0.05) 79px,rgba(95, 95, 95, 0.05) 79px, rgba(95, 95, 95, 0.05) 103px,rgba(15, 15, 15, 0.05) 103px, rgba(15, 15, 15, 0.05) 148px,rgba(51, 51, 51, 0.05) 148px, rgba(51, 51, 51, 0.05) 186px,rgba(225, 225, 225, 0.05) 186px, rgba(225, 225, 225, 0.05) 202px,rgba(60, 60, 60, 0.05) 202px, rgba(60, 60, 60, 0.05) 239px,rgba(67, 67, 67, 0.05) 239px, rgba(67, 67, 67, 0.05) 259px),repeating-linear-gradient(45deg, rgba(146, 146, 146, 0.05) 0px, rgba(146, 146, 146, 0.05) 40px,rgba(166, 166, 166, 0.05) 40px, rgba(166, 166, 166, 0.05) 54px,rgba(156, 156, 156, 0.05) 54px, rgba(156, 156, 156, 0.05) 71px,rgba(134, 134, 134, 0.05) 71px, rgba(134, 134, 134, 0.05) 95px,rgba(77, 77, 77, 0.05) 95px, rgba(77, 77, 77, 0.05) 111px,rgba(26, 26, 26, 0.05) 111px, rgba(26, 26, 26, 0.05) 153px,rgba(46, 46, 46, 0.05) 153px, rgba(46, 46, 46, 0.05) 202px,rgba(197, 197, 197, 0.05) 202px, rgba(197, 197, 197, 0.05) 216px),linear-gradient(90deg, rgb(30, 178, 248),rgb(46, 36, 197));
+            }
+      .table-div{
+        background-image: linear-gradient(331deg, transparent 0%, transparent 24%,rgba(23,1,244, 0.07) 24%, rgba(23,1,244, 0.07) 25%,transparent 25%, transparent 100%),linear-gradient(196deg, transparent 0%, transparent 25%,rgba(23,1,244, 0.07) 25%, rgba(23,1,244, 0.07) 36%,transparent 36%, transparent 100%),linear-gradient(331deg, transparent 0%, transparent 63%,rgba(23,1,244, 0.07) 63%, rgba(23,1,244, 0.07) 69%,transparent 69%, transparent 100%),linear-gradient(286deg, rgb(246,247,248),rgb(246,247,248));
+                  }
+      .box-table{
       }
     </style>
   </head>
   <body class="font-sans bg-gray-100">
     {% if query %} {% endif %}
-    <div class="container mx-auto my-8 p-8 bg-white rounded shadow-md">
+    <div class="container mx-auto my-8 p-8 bg-white rounded shadow-md w-2/3 table-div">
       {% include 'search_form.html' %}
       <br />
       <h1 class="text-2xl font-bold mb-4">Search results for: "{{ query }}"</h1>
       <div class="overflow-x-auto">
-        <table class="w-full bg-white shadow-md rounded border-collapse">
+        <table class="w-full bg-white shadow-md rounded border-collapse box-table">
           <thead>
             <tr>
               <th class="px-4 py-2">Admission No</th>

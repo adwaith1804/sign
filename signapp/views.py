@@ -51,6 +51,9 @@ def insert_data(request):
         form = TeacherForm()
     return render(request,'registeration.html', {'form': form}) 
 
+def admin_index(request):
+    return render(request , 'admin_index.html' )
+
 def view_teacher(request):
     my_models = ModelForTeacher.objects.all()
     return render(request, 'teachtable.html', {'my_models': my_models})
