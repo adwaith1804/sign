@@ -77,6 +77,15 @@ class AnswerModel(models.Model):
     login_id = models.CharField( max_length=50)
     current_date = models.DateField( auto_now=True)
     #teacher_id = models.CharField(max_length=50)
+
+class OnlineClassModel(models.Model):
+    primary_key = models.AutoField(primary_key=True)
+    dateofclass = models.DateField(auto_now_add=False)
+    timeofclass = models.TimeField(auto_now=False,auto_now_add=False)
+    current_date = models.DateField(auto_now_add=True)
+    classofstudent = models.CharField(max_length=10)
+    teacher_id = models.CharField(max_length=20)
     
+
 
 # Create your models here.

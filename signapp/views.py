@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import ModelForStud, TeacherForm, NotificationForm,FormForDoubt,FormForReply,LoginForm,AttendanceForm,FormForExams,AnswerForm
+from .forms import ModelForStud, TeacherForm, NotificationForm,FormForDoubt,FormForReply,LoginForm,AttendanceForm,FormForExams,AnswerForm,FormForClasses
 from .models import StudentsMod,ModelForTeacher,TableOfNotifications,TableForDoubt,AttendanceMod,ExamModel,AnswerModel
 from datetime import date,datetime
 from django.db.models import Q
@@ -422,4 +422,21 @@ def teacher_exam_answers(request, admissionno):
             'wrong_count': wrong_count
         })
 
-    return render(request, 'teacher_exam_answers.html', {'student': student, 'student_data': student_data})
+    return render(request, 'teacher_exam_answers.html', {'student': student, 'student_data': student_data,'answer_model':attempted_exams})
+
+def add_classes(request):
+    teacherid = request.session.get('teachid')
+    if teacherid is None:
+        return redirect('')
+    if request.method =='POST':
+        form = FormForClasses(request.POST)
+        if form.is_valid():
+            exam_instance = form.save(commit=False)
+            exam_instance.teacher_id = teacherid  # Assign teacher_id to the instance
+            exam_instance.save()
+            form.save()
+            return redirect('add_classes')
+    else:
+        form = FormForClasses()  
+    return render(request,'add_onlineclasses.html', {'form': form})
+    
