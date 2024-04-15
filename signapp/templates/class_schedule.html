@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Schedule</title>
+</head>
+<body>
+    <h1>Class Schedule</h1>
+    {% if classes %}
+        <h2>Available Classes</h2>
+        <ul>
+            {% for class in classes %}
+                <li>{{ class.dateofclass }} at {{ class.timeofclass }}</li>
+            {% endfor %}
+        </ul>
+        <h2>Teacher(s)</h2>
+        <ul>
+            {% for teacher in teachers %}
+                <li>{{ teacher.teachername }}</li>
+            {% endfor %}
+        </ul>
+        <!-- Add your link here -->
+        <a href="#">Join Class</a>
+    {% else %}
+        <p>No classes available at the moment.</p>
+    {% endif %}
+</body>
+</html>

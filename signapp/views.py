@@ -8,6 +8,10 @@ import string
 import uuid
 from django.utils import timezone
 from datetime import datetime
+from django.shortcuts import render
+from django.http import HttpResponse
+from .models import StudentsMod, OnlineClassModel, ModelForTeacher
+import datetime
 
 #run on /sign
 # def insert_data(request):
@@ -130,11 +134,13 @@ def search_students(request):
     return render(request, 'search_results.html', {'results': results, 'query': query})
 
 def table_doubt(request):
+    admissionno = request.session.get('admissionno')
     if request.method =='POST':
         form = FormForDoubt(request.POST)
         if form.is_valid():
             notifi = form.save(commit=False)
             notifi.currentdate = date.today()
+            
             notifi.save()
             return redirect('table_doubt')
     else:
@@ -234,7 +240,6 @@ def login_func(request, usertype):
     
     
 def edit_student_individual(request):
-
     admissionno = request.session.get('admissionno')
     student = StudentsMod.objects.get(admissionno=admissionno)
     if request.method == 'POST':
@@ -247,7 +252,6 @@ def edit_student_individual(request):
     return render(request, 'edit_student.html', {'form': form})
 
 def edit_teacher_individual(request):
-
     teachid = request.session.get('teachid')
     teacher = ModelForTeacher.objects.get(teachid=teachid)
     if request.method == 'POST':
@@ -439,4 +443,26 @@ def add_classes(request):
     else:
         form = FormForClasses()  
     return render(request,'add_onlineclasses.html', {'form': form})
+
+def check_class(request):
+    if request.method == 'GET':
+        admissionno = request.session.get('admissionno')
+        student = StudentsMod.objects.get(admissionno=admissionno)
+
+        current_date = datetime.date.today()
+        current_time = datetime.datetime.now().time()
+
+        # Calculate the current time 2 hours ahead for comparison
+        # two_hours_ahead = datetime.datetime.combine(datetime.date.today(), current_time) + datetime.timedelta(hours=2)
+# and datetime.datetime.now() <= two_hours_ahead
+        online_classes = OnlineClassModel.objects.filter(dateofclass=current_date, classofstudent=student.classstud)
+        if online_classes.exists() :
+            teacher_ids = online_classes.values_list('teacher_id', flat=True)
+            teachers = ModelForTeacher.objects.filter(teachid__in=teacher_ids)
+            return render(request, 'class_schedule.html', {'classes': online_classes, 'teachers': teachers})
+        else:
+            return HttpResponse("No classes available at the moment.")
+    else:
+        return HttpResponse("Invalid request method.")
+
     
